@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Saved invoices stored in the browser.">
+  <title>Invoice History | Smart Billing System</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header no-print">
+    <h1>Smart Billing System</h1>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Billing</a>
+      <a href="history.html" aria-current="page">Invoice History</a>
+    </nav>
+  </header>
+
+  <main class="history-wrap">
+    <section class="panel" aria-labelledby="hist-title">
+      <div class="hist-head">
+        <h2 id="hist-title">Invoice History</h2>
+        <button id="clear-history" class="btn btn-outline" type="button">Delete All</button>
+      </div>
+      <p id="hist-summary" class="summary-line"></p>
+      <div class="table-wrap">
+        <table class="items">
+          <caption class="sr-only">Saved invoices</caption>
+          <thead>
+            <tr>
+              <th scope="col">Invoice No.</th>
+              <th scope="col">Date</th>
+              <th scope="col">Customer</th>
+              <th scope="col" class="num">Items</th>
+              <th scope="col" class="num">Total</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer no-print">
+    <p>Lab 5: JavaScript Fundamentals &ndash; Smart Billing System</p>
+  </footer>
+
+  <script src="js/history.js"></script>
+</body>
+</html>

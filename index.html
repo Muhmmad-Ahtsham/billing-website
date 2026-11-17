@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Smart Billing System - browser-based invoice generator.">
+  <title>Smart Billing System</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#invoice">Skip to invoice</a>
+
+  <header class="app-header no-print">
+    <h1>Smart Billing System</h1>
+    <nav aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Billing</a>
+      <a href="history.html">Invoice History</a>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <div class="controls no-print">
+      <section class="panel" aria-labelledby="add-title">
+        <h2 id="add-title">Add Item</h2>
+        <form id="item-form" novalidate>
+          <div class="field">
+            <label for="product">Product</label>
+            <select id="product" name="product"></select>
+          </div>
+          <div class="field">
+            <label for="quantity">Quantity</label>
+            <input id="quantity" name="quantity" type="number" min="1" step="1" value="1" inputmode="numeric">
+            <small id="stock-hint" aria-live="polite"></small>
+          </div>
+          <button class="btn" type="submit">Add to Invoice</button>
+        </form>
+        <p id="message" class="message" role="alert" aria-live="assertive"></p>
+      </section>
+
+      <section class="panel" aria-labelledby="charges-title">
+        <h2 id="charges-title">Customer &amp; Charges</h2>
+        <div class="field">
+          <label for="customer">Customer name</label>
+          <input id="customer" type="text" maxlength="60" placeholder="Walk-in customer" autocomplete="off">
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="discount">Discount (Rs.)</label>
+            <input id="discount" type="number" min="0" step="0.01" value="0" inputmode="decimal">
+          </div>
+          <div class="field">
+            <label for="tax">Tax rate (%)</label>
+            <input id="tax" type="number" min="0" max="100" step="0.01" value="17" inputmode="decimal">
+          </div>
+        </div>
+        <p id="charge-message" class="message" role="alert"></p>
+      </section>
+    </div>
+
+    <section id="invoice" class="invoice" aria-labelledby="inv-title" tabindex="-1">
+      <header class="invoice-head">
+        <div>
+          <h2 id="inv-title">INVOICE</h2>
+          <p class="store">Smart Billing Store<br>Jamshoro, Sindh</p>
+        </div>
+        <dl class="meta">
+          <dt>Invoice No.</dt><dd id="invoice-no">-</dd>
+          <dt>Date</dt><dd id="invoice-date">-</dd>
+          <dt>Customer</dt><dd id="invoice-customer">Walk-in customer</dd>
+        </dl>
+      </header>
+
+      <div class="table-wrap">
+        <table class="items">
+          <caption class="sr-only">Invoice line items</caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Item</th>
+              <th scope="col" class="num">Price</th>
+              <th scope="col" class="num">Qty</th>
+              <th scope="col" class="num">Total</th>
+              <th scope="col" class="no-print"><span class="sr-only">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody id="invoice-body"></tbody>
+        </table>
+      </div>
+
+      <dl class="totals">
+        <div><dt>Subtotal</dt><dd id="subtotal">Rs. 0.00</dd></div>
+        <div><dt>Discount</dt><dd id="discount-out">Rs. 0.00</dd></div>
+        <div><dt>Tax (<span id="tax-rate-out">17</span>%)</dt><dd id="tax-out">Rs. 0.00</dd></div>
+        <div class="grand"><dt>Grand Total</dt><dd id="grand-total">Rs. 0.00</dd></div>
+      </dl>
+
+      <p class="thanks">Thank you for your purchase!</p>
+
+      <div class="actions no-print">
+        <button id="print-btn" class="btn" type="button">Print Invoice</button>
+        <button id="save-btn" class="btn btn-accent" type="button">Save Invoice</button>
+        <button id="clear-btn" class="btn btn-outline" type="button">Clear Invoice</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer no-print">
+    <p>Lab 5: JavaScript Fundamentals &ndash; Smart Billing System</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

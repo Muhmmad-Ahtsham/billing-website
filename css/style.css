@@ -1,0 +1,178 @@
+/* ===== Smart Billing System - Lab 5 ===== */
+:root {
+  --navy: #14213d;
+  --blue: #2563eb;
+  --gold: #f59e0b;
+  --ink: #1f2937;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --bg: #f3f5f9;
+  --white: #fff;
+  --green: #047857;
+  --red: #b91c1c;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+.skip-link { position: absolute; left: -999px; top: 0; background: var(--gold); padding: .5rem 1rem; z-index: 10; }
+.skip-link:focus { left: 0; }
+.sr-only { position: absolute; left: -999px; width: 1px; height: 1px; overflow: hidden; }
+.print-only { display: none; }
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ---------- Header ---------- */
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem 1rem;
+  background: var(--navy);
+  color: var(--white);
+  padding: .9rem 1.25rem;
+}
+.app-header h1 { margin: 0; font-size: 1.35rem; }
+.app-header nav { display: flex; gap: .25rem; }
+.app-header nav a { color: #dbe4f5; text-decoration: none; padding: .45rem .9rem; border-radius: 6px; }
+.app-header nav a:hover { background: rgba(255,255,255,.12); }
+.app-header nav a[aria-current="page"] { background: var(--white); color: var(--navy); font-weight: 700; }
+
+/* ---------- Layout: stacked on mobile, two columns on desktop ---------- */
+.layout {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);   /* lets the wide table scroll inside its box instead of widening the page */
+  gap: 1.25rem;
+}
+@media (min-width: 900px) {
+  .layout { grid-template-columns: 340px minmax(0, 1fr); align-items: start; }
+}
+
+.panel, .invoice {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+.panel { margin-bottom: 1.25rem; }
+.panel h2 { margin: 0 0 .9rem; font-size: 1.1rem; color: var(--navy); }
+
+/* ---------- Forms ---------- */
+.field { margin-bottom: .9rem; flex: 1; }
+.row { display: flex; gap: .75rem; }
+label { display: block; font-weight: 600; margin-bottom: .25rem; font-size: .92rem; }
+input, select {
+  width: 100%;
+  min-height: 44px;
+  padding: .55rem .7rem;
+  border: 1px solid #b9c2d3;
+  border-radius: 8px;
+  font: inherit;
+  background: var(--white);
+}
+input[aria-invalid="true"] { border-color: var(--red); background: #fef2f2; }
+small { display: block; color: var(--muted); margin-top: .25rem; }
+
+.message { min-height: 1.4em; margin: .6rem 0 0; font-weight: 600; font-size: .92rem; }
+.message.error { color: var(--red); }
+.message.success { color: var(--green); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  min-height: 44px;
+  padding: .6rem 1.2rem;
+  border: 2px solid var(--blue);
+  background: var(--blue);
+  color: var(--white);
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:hover:not(:disabled) { background: #1d4ed8; border-color: #1d4ed8; }
+.btn-accent { background: var(--gold); border-color: var(--gold); color: #000; }
+.btn-accent:hover:not(:disabled) { background: #d98a05; border-color: #d98a05; }
+.btn-outline { background: transparent; color: var(--blue); }
+.btn-outline:hover:not(:disabled) { background: #eff6ff; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.link, .link-danger { background: none; border: 0; padding: .4rem; font: inherit; cursor: pointer; text-decoration: underline; min-height: 36px; }
+.link { color: var(--blue); }
+.link-danger { color: var(--red); }
+
+/* ---------- Invoice ---------- */
+.invoice-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 3px solid var(--navy);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+.invoice h2 { margin: 0; font-size: 1.8rem; letter-spacing: .08em; color: var(--navy); }
+.store { margin: .25rem 0 0; color: var(--muted); }
+.meta { display: grid; grid-template-columns: auto auto; gap: .15rem 1rem; margin: 0; }
+.meta dt { color: var(--muted); }
+.meta dd { margin: 0; font-weight: 700; text-align: right; }
+
+.table-wrap { overflow-x: auto; }
+table.items { width: 100%; border-collapse: collapse; min-width: 520px; }
+.items th, .items td { padding: .6rem .5rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+.items thead th { background: var(--navy); color: var(--white); font-size: .88rem; }
+.items .num { text-align: right; }
+.items td.empty { text-align: center; color: var(--muted); padding: 2rem 1rem; }
+.qty-input { width: 80px; min-height: 38px; text-align: right; padding: .3rem .5rem; }
+
+.totals { margin: 1rem 0 0 auto; max-width: 340px; }
+.totals div { display: flex; justify-content: space-between; padding: .35rem 0; }
+.totals dt, .totals dd { margin: 0; }
+.totals .grand { border-top: 2px solid var(--navy); margin-top: .35rem; padding-top: .6rem; font-size: 1.25rem; font-weight: 800; color: var(--navy); }
+
+.thanks { text-align: center; color: var(--muted); margin: 1.5rem 0 0; }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--line); }
+
+/* ---------- History page ---------- */
+.history-wrap { max-width: 1000px; margin: 0 auto; padding: 1.25rem; }
+.hist-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .75rem; }
+.summary-line { color: var(--muted); margin: .25rem 0 1rem; }
+.detail-row td { background: #f8fafc; }
+.detail-list { margin: 0 0 .5rem; padding-left: 1.2rem; }
+
+.app-footer { text-align: center; color: var(--muted); padding: 1.5rem 1rem; font-size: .88rem; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 480px) {
+  .row { flex-direction: column; gap: 0; }
+  .meta { width: 100%; }
+}
+
+/* ===== PRINT: only the invoice is printed ===== */
+@media print {
+  .no-print, .skip-link { display: none !important; }
+  .print-only { display: inline; }
+  body { background: #fff; font-size: 12pt; }
+  .layout { display: block; padding: 0; max-width: none; }
+  .invoice { border: 0; box-shadow: none; padding: 0; }
+  .items thead th { background: #e5e7eb !important; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .table-wrap { overflow: visible; }
+  table.items { min-width: 0; }
+  .invoice-head { border-bottom-color: #000; }
+  .invoice h2, .totals .grand { color: #000; }
+}
